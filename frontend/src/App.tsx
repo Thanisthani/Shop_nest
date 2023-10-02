@@ -1,7 +1,15 @@
+import { Dispatch, useEffect } from 'react'
 import { Container, Navbar, Nav } from 'react-bootstrap'
+import { useDispatch } from 'react-redux'
 import { Outlet } from 'react-router-dom'
+import { getAllProducts } from './features/products/productsSlice'
 
 function App() {
+  const dispatch: Dispatch<any> = useDispatch()
+
+  useEffect(() => {
+    dispatch(getAllProducts())
+  }, [])
   return (
     <div className="d-flex flex-column vh-100">
       <header>

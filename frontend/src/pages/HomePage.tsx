@@ -1,36 +1,34 @@
 import { Col, Row } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
-import { useEffect, useState } from 'react'
-import productService from '../api/productService'
+
+import ProductIteam from '../components/ProductIteam'
+import { Helmet } from 'react-helmet-async'
+import { useSelector } from 'react-redux'
 import { product } from '../types/products.type'
+import { useEffect } from 'react'
 
 const HomePage = () => {
-  const [products, setProducts] = useState<product[]>([])
+  //   const [products, setProducts] = useState<product[]>([])
 
-  const fetchData = async () => {
-    const res = await productService.fetchProduct()
-    console.log(res)
-    setProducts(res.data)
-  }
+  const products = useSelector((state: any) => state.products)
+  // const fetchData = async () => {
+  //   const res = await productService.fetchProduct()
+  //   console.log(res)
+  //   setProducts(res.data)
+  // }
 
   useEffect(() => {
-    fetchData()
+    console.log(products.products)
   }, [])
 
   return (
-    <Row>
-      {products &&
-        products.map((product) => (
+    <Row className="mt-5">
+      <Helmet>
+        <title>ShopNest</title>
+      </Helmet>
+      {products.products &&
+        products.products.map((product: product) => (
           <Col key={product.slug} sm="6" md="4" lg="3">
-            <Link to={'/product/' + product.slug}>
-              <img
-                src={product.image}
-                alt={product.name}
-                className="product-image"
-              />
-              <h2>{product.name}</h2>
-              <p>${product.price}</p>
-            </Link>
+            <ProductIteam product={product} />
           </Col>
         ))}
     </Row>
