@@ -1,8 +1,12 @@
 import express, { Router } from 'express'
-import { getAllProductController } from '../controllers/productController'
+import {
+  getAllProductController,
+  getProductController,
+} from '../controllers/productController'
 
 const productRouter: Router = express.Router()
 
-productRouter.get('/products', getAllProductController)
+productRouter.get('/get', getAllProductController)
+productRouter.get('/get/:slug', getProductController)
 
 export default productRouter

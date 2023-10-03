@@ -1,9 +1,9 @@
-import express, { Request, Response } from 'express'
+import express, { Express, Request, Response } from 'express'
 import { sampleProducts } from './data'
 import cors from 'cors'
 import productRouter from './api/routes/productRoute'
 
-const app = express()
+const app: Express = express()
 
 app.use(
   cors({
@@ -15,8 +15,10 @@ app.get('/', (req: Request, res: Response) => {
   res.json(sampleProducts)
 })
 
-app.use('/api', productRouter)
+app.use('/products', productRouter)
+
 const PORT = 4000
+
 app.listen(PORT, () => {
   console.log(`server started at http://localhost:${PORT}`)
 })
