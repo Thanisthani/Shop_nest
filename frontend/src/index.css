@@ -17,3 +17,7 @@
 .rating span {
   color: #ffc000;
 }
+
+.large {
+  max-width: 100%;
+}

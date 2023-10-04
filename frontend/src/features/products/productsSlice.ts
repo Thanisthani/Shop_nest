@@ -11,9 +11,9 @@ const initialState: productState = {
   errMsg: '',
 }
 
-export const getAllProducts = createAsyncThunk('product/fetch', async () => {
+export const getAllProducts = createAsyncThunk('products/fetch', async () => {
   try {
-    const response = await productService.fetchProduct()
+    const response = await productService.fetchProducts()
     console.log(response.data, 'ressss')
     return response.data
   } catch (error) {
@@ -21,7 +21,7 @@ export const getAllProducts = createAsyncThunk('product/fetch', async () => {
   }
 })
 
-export const productSlice = createSlice({
+export const productsSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {},
@@ -35,4 +35,4 @@ export const productSlice = createSlice({
   },
 })
 
-export default productSlice.reducer
+export default productsSlice.reducer
