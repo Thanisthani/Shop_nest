@@ -1,11 +1,14 @@
 import { Response, Request } from 'express'
 import { sampleProducts } from '../../data'
-import { getProductService } from '../../services/productService'
+import {
+  getAllProductsService,
+  getProductService,
+} from '../../services/productService'
 
 export const getAllProductController = async (req: Request, res: Response) => {
   try {
-    console.log('hello')
-    return res.json(sampleProducts)
+    const products = await getAllProductsService()
+    return res.json(products)
   } catch (error) {
     return res.status(500)
   }
