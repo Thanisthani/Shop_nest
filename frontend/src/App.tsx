@@ -1,11 +1,13 @@
 import { Dispatch, useEffect } from 'react'
-import { Container, Navbar, Nav } from 'react-bootstrap'
-import { useDispatch } from 'react-redux'
-import { Outlet } from 'react-router-dom'
+import { Container, Navbar, Nav, Badge } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link, Outlet } from 'react-router-dom'
 import { getAllProducts } from './features/products/productsSlice'
 
 function App() {
   const dispatch: Dispatch<any> = useDispatch()
+
+  const cartItems = useSelector((state: any) => state.cart)
 
   useEffect(() => {
     dispatch(getAllProducts())
@@ -17,12 +19,22 @@ function App() {
           <Container>
             <Navbar.Brand>ShopNest</Navbar.Brand>
             <Nav>
-              <a href="/" className="nav-link">
+              <Link to="/cart" className="nav-link">
                 Cart
-              </a>
-              <a href="/" className="nav-link">
+                {cartItems
+                  ? cartItems.cartItem.length > 0 && (
+                      <Badge pill bg="danger">
+                        {cartItems.cartItem.reduce(
+                          (a: any, c: any) => a + c.quantity,
+                          0
+                        )}
+                      </Badge>
+                    )
+                  : ''}
+              </Link>
+              <Link to="/cart" className="nav-link">
                 Sign In
-              </a>
+              </Link>
             </Nav>
           </Container>
         </Navbar>
