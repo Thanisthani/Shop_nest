@@ -19,24 +19,31 @@ export const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addCart: (state: Cart, action: any) => {
-      const newItem = action.payload
+    addCart: (state, action) => {
+      try {
+        console.log('addCart executed')
+        const newItem = action.payload
 
-      const existingItem = state.cartItem.find(
-        (item: CartItem) => item._id === newItem._id
-      )
+        const existingItem = state.cartItem.find(
+          (item: CartItem) => item._id === newItem._id
+        )
 
-      const cartItems = existingItem
-        ? state.cartItem.map((item) =>
-            item._id === newItem._id ? newItem : item
-          )
-        : [...state.cartItem, newItem]
+        const cartItems = existingItem
+          ? state.cartItem.map((item) =>
+              item._id === newItem._id ? newItem : item
+            )
+          : [...state.cartItem, newItem]
 
-      localStorage.setItem('CartItems', JSON.stringify(cartItems))
+        localStorage.setItem('CartItems', JSON.stringify(cartItems))
 
-      return { ...state, cartItem: cartItems }
+        return { ...state, cartItem: cartItems }
+      } catch (error) {
+        console.log('Cart slice err', error)
+      }
     },
   },
 })
+
+export const { addCart } = cartSlice.actions
 
 export default cartSlice.reducer

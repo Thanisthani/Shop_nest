@@ -6,10 +6,16 @@ import { getProduct } from '../features/product/productSlice'
 import { product } from '../types/products.type'
 import { Badge, Button, Card, Col, ListGroup, Row } from 'react-bootstrap'
 import Rating from '../components/Rating'
+import { CartItem } from '../types/cart.type'
+import { addCart } from '../features/cart/cartSlice'
+import { convertProductToCart } from '../utils'
+import { toast } from 'react-toastify'
 
 const ProductPage = () => {
   const params = useParams()
   const dispatch: Dispatch<any> = useDispatch()
+
+  const cartItems = useSelector((state: any) => state.cart)
 
   const { slug } = params
 
@@ -18,6 +24,26 @@ const ProductPage = () => {
   useEffect(() => {
     dispatch(getProduct(slug!))
   }, [])
+
+  const addCartItem = async (item: CartItem) => {
+    try {
+      const existingItem = await cartItems.cartItem.find(
+        (x: any) => x._id === product._id
+      )
+
+      console.log('existing item', existingItem, cartItems.cartItem)
+      const quantity = (await existingItem) ? existingItem.quantity + 1 : 1
+
+      if (product.countInStock < quantity) {
+        toast.warn('Sorry. Product is out of stock')
+        return
+      }
+      dispatch(addCart({ ...item, quantity: quantity }))
+      toast.success('Product added to the cart')
+    } catch (error) {
+      console.log('add cart', error)
+    }
+  }
 
   return (
     <div className="mt-2">
@@ -73,7 +99,14 @@ const ProductPage = () => {
                     {product.countInStock > 0 && (
                       <ListGroup.Item>
                         <div className="d-grid">
-                          <Button variant="primary">Add to Cart</Button>
+                          <Button
+                            onClick={async () => {
+                              addCartItem(await convertProductToCart(product))
+                            }}
+                            variant="primary"
+                          >
+                            Add to Cart
+                          </Button>
                         </div>
                       </ListGroup.Item>
                     )}

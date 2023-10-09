@@ -3,6 +3,8 @@ import { Container, Navbar, Nav, Badge } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, Outlet } from 'react-router-dom'
 import { getAllProducts } from './features/products/productsSlice'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
   const dispatch: Dispatch<any> = useDispatch()
@@ -14,6 +16,7 @@ function App() {
   }, [])
   return (
     <div className="d-flex flex-column vh-100">
+      <ToastContainer position="bottom-center" limit={1} />
       <header>
         <Navbar bg="dark" variant="dark" expand="lg">
           <Container>
@@ -21,16 +24,14 @@ function App() {
             <Nav>
               <Link to="/cart" className="nav-link">
                 Cart
-                {cartItems
-                  ? cartItems.cartItem.length > 0 && (
-                      <Badge pill bg="danger">
-                        {cartItems.cartItem.reduce(
-                          (a: any, c: any) => a + c.quantity,
-                          0
-                        )}
-                      </Badge>
-                    )
-                  : ''}
+                {cartItems.cartItem.length > 0 && (
+                  <Badge pill bg="danger">
+                    {cartItems.cartItem.reduce(
+                      (a: any, c: any) => a + c.quantity,
+                      0
+                    )}
+                  </Badge>
+                )}
               </Link>
               <Link to="/cart" className="nav-link">
                 Sign In
