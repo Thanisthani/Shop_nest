@@ -15,12 +15,14 @@ import ProductPage from './pages/ProductPage.tsx'
 import { HelmetProvider } from 'react-helmet-async'
 import { Provider } from 'react-redux'
 import { store } from './features/store.ts'
+import CartPage from './pages/CartPage.tsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route index={true} element={<HomePage />} />
       <Route path="/product/:slug" element={<ProductPage />} />
+      <Route path="/cart" element={<CartPage />} />
     </Route>
   )
 )
