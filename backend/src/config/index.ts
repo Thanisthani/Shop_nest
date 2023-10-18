@@ -5,4 +5,5 @@ if (process.env.NODE_ENV !== 'production') {
 
 export default {
   dbURL: process.env.MONGODB_URL,
+  accessTokenKey: process.env.ACCESSTOKENKEY,
 }
