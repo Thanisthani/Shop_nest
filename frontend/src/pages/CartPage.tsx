@@ -2,10 +2,11 @@ import React, { Dispatch, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { CartItem } from '../types/cart.type'
 import { toast } from 'react-toastify'
-import { addCart } from '../features/cart/cartSlice'
+import { addCart, deleteCart } from '../features/cart/cartSlice'
 import { Helmet } from 'react-helmet-async'
 import { Button, Card, Col, ListGroup, Row } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
+import { product } from '../types/products.type'
 
 const CartPage = () => {
   const dispatch: Dispatch<any> = useDispatch()
@@ -25,6 +26,10 @@ const CartPage = () => {
 
   const CheckoutHandler = async () => {
     navigate('/')
+  }
+
+  const DeleteItemHandler = async (product: CartItem) => {
+    dispatch(deleteCart(product))
   }
 
   useEffect(() => {
@@ -76,7 +81,10 @@ const CartPage = () => {
                     </Col>
                     <Col md={3}>${item.price}</Col>
                     <Col md={2}>
-                      <Button variant="light">
+                      <Button
+                        variant="light"
+                        onClick={() => DeleteItemHandler(item)}
+                      >
                         <i className="fas fa-trash" />
                       </Button>
                     </Col>

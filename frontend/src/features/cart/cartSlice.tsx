@@ -21,7 +21,6 @@ export const cartSlice = createSlice({
   reducers: {
     addCart: (state, action) => {
       try {
-        console.log('addCart executed')
         const newItem = action.payload
 
         const existingItem = state.cartItem.find(
@@ -41,9 +40,27 @@ export const cartSlice = createSlice({
         console.log('Cart slice err', error)
       }
     },
+    deleteCart: (state, action) => {
+      try {
+        // const cartItems  = state.cartItem.find(
+        //   (item:CartItem) => item._id !== action.payload._id
+        // )
+
+        const newItem = action.payload
+
+        const cartItems = state.cartItem.filter(
+          (item: CartItem) => item._id !== newItem._id
+        )
+
+        localStorage.setItem('CartItems', JSON.stringify(cartItems))
+        return { ...state, cartItem: cartItems }
+      } catch (error) {
+        console.log('Delete cart error', error)
+      }
+    },
   },
 })
 
-export const { addCart } = cartSlice.actions
+export const { addCart, deleteCart } = cartSlice.actions
 
 export default cartSlice.reducer
