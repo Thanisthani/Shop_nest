@@ -34,6 +34,20 @@ export const signInUser = createAsyncThunk(
   }
 )
 
+export const registerUser = createAsyncThunk(
+  'user/register',
+  async (data: UserInfo, thunkAPI) => {
+    try {
+      const response = await userService.registerUserService(data)
+      await localStorage.setItem('userInfo', JSON.stringify(response.data))
+      return response.data
+    } catch (error: any) {
+      console.log('register error', error.response.data.error)
+      return thunkAPI.rejectWithValue(error.response.data.error)
+    }
+  }
+)
+
 export const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -60,7 +74,16 @@ export const userSlice = createSlice({
     })
     builder.addCase(signInUser.rejected, (state, action) => {
       state.errMsg = action.payload as string
-      console.log('sign rroorr', state.errMsg)
+    })
+    builder.addCase(registerUser.fulfilled, (state, action) => {
+      state.name = action.payload.name
+      state.email = action.payload.email
+      state.isAdmin = action.payload.isAdmin
+      state.token = action.payload.token
+      state.errMsg = ''
+    })
+    builder.addCase(registerUser.rejected, (state, action) => {
+      state.errMsg = action.payload as string
     })
   },
 })
