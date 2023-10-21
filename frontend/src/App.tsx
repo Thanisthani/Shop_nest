@@ -1,15 +1,25 @@
 import { Dispatch, useEffect } from 'react'
-import { Container, Navbar, Nav, Badge } from 'react-bootstrap'
+import { Container, Navbar, Nav, Badge, NavDropdown } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, Outlet } from 'react-router-dom'
+import { Link, Outlet, useNavigate } from 'react-router-dom'
 import { getAllProducts } from './features/products/productsSlice'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { signOutUser } from './features/user/userSlice'
 
 function App() {
   const dispatch: Dispatch<any> = useDispatch()
 
+  const navigate = useNavigate()
+
   const cartItems = useSelector((state: any) => state.cart)
+
+  const userInfo = useSelector((state: any) => state.user)
+
+  const signOutHandler = async () => {
+    await dispatch(signOutUser())
+    await navigate('/signin')
+  }
 
   useEffect(() => {
     dispatch(getAllProducts())
@@ -33,9 +43,24 @@ function App() {
                   </Badge>
                 )}
               </Link>
-              <Link to="/cart" className="nav-link">
-                Sign In
-              </Link>
+              {userInfo.name ? (
+                <NavDropdown
+                  title={userInfo.name}
+                  id="basic-nav-dropdown bg-dark"
+                >
+                  <Link
+                    to="#signout"
+                    className="dropdown-item"
+                    onClick={signOutHandler}
+                  >
+                    Sign Out
+                  </Link>
+                </NavDropdown>
+              ) : (
+                <Link to="/signin" className="nav-link">
+                  Sign In
+                </Link>
+              )}
             </Nav>
           </Container>
         </Navbar>

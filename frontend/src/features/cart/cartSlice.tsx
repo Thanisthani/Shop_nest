@@ -54,6 +54,21 @@ export const cartSlice = createSlice({
         console.log('Delete cart error', error)
       }
     },
+    deleteAllCart: (state) => {
+      try {
+        state.cartItem = []
+        state.shippingAddress = {}
+        state.shippingPrice = 0
+        state.itemsPrice = 0
+        state.totalPrice = 0
+        state.taxPrice = 0
+        state.paymentMethod = ''
+        localStorage.removeItem('CartItems')
+        localStorage.removeItem('ShippingAddress')
+      } catch (error) {
+        console.log('Delete all cart error', error)
+      }
+    },
   },
 })
 

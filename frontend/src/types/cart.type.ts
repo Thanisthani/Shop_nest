@@ -9,16 +9,16 @@ export type CartItem = {
 }
 
 export type ShippingAddress = {
-  fullName: string
-  address: string
-  city: string
-  country: string
-  postalCode: string
+  fullName?: string
+  address?: string
+  city?: string
+  country?: string
+  postalCode?: string
 }
 
 export type Cart = {
   cartItem: CartItem[]
-  shippingAddress: ShippingAddress
+  shippingAddress?: ShippingAddress
   itemsPrice: number
   shippingPrice: number
   taxPrice: number
