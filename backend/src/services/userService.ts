@@ -10,7 +10,7 @@ export const loginUserService = async (email: string, password: string) => {
       if (isValidate) {
         const { name, isAdmin } = await existingUser
         const accessToken = await generateToken({ name, email, isAdmin })
-        return accessToken
+        return { accessToken, name, isAdmin }
       } else {
         throw new Error('Incorrect Password')
       }

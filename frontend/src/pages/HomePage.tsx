@@ -7,18 +7,7 @@ import { product } from '../types/products.type'
 import { useEffect } from 'react'
 
 const HomePage = () => {
-  //   const [products, setProducts] = useState<product[]>([])
-
   const products = useSelector((state: any) => state.products)
-  // const fetchData = async () => {
-  //   const res = await productService.fetchProduct()
-  //   console.log(res)
-  //   setProducts(res.data)
-  // }
-
-  useEffect(() => {
-    console.log(products.products)
-  }, [])
 
   return (
     <Row className="mt-5">

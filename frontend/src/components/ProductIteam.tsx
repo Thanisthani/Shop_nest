@@ -13,10 +13,6 @@ const ProductIteam = ({ product }: { product: product }) => {
 
   const cartItems = useSelector((state: any) => state.cart)
 
-  useEffect(() => {
-    console.log('cartItems', cartItems)
-  }, [])
-
   const addCartItem = async (item: CartItem) => {
     try {
       const existingItem = await cartItems.cartItem.find(

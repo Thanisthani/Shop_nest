@@ -6,7 +6,6 @@ import { addCart, deleteCart } from '../features/cart/cartSlice'
 import { Helmet } from 'react-helmet-async'
 import { Button, Card, Col, ListGroup, Row } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
-import { product } from '../types/products.type'
 
 const CartPage = () => {
   const dispatch: Dispatch<any> = useDispatch()
@@ -25,7 +24,7 @@ const CartPage = () => {
   }
 
   const CheckoutHandler = async () => {
-    navigate('/')
+    navigate('/signin')
   }
 
   const DeleteItemHandler = async (product: CartItem) => {

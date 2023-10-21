@@ -20,7 +20,6 @@ export const getProduct = createAsyncThunk(
   async (data: string, thunkAPI) => {
     try {
       const response = await productService.fetchProduct(data)
-      console.log('product details', response.data)
       return response.data
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
