@@ -12,7 +12,9 @@ const initialState: Cart = {
   itemsPrice: 0,
   totalPrice: 0,
   taxPrice: 0,
-  paymentMethod: '',
+  paymentMethod: localStorage.getItem('PaymentMethod')
+    ? JSON.stringify(localStorage.getItem('PaymentMethod'))
+    : '',
 }
 
 export const cartSlice = createSlice({
@@ -78,9 +80,19 @@ export const cartSlice = createSlice({
         console.log('Add shipping address error', error)
       }
     },
+    addPaymentMethod: (state, action) => {
+      try {
+        const method = action.payload
+        localStorage.setItem('PaymentMethod', JSON.stringify(method))
+        return { ...state, paymentMethod: method }
+      } catch (error) {
+        console.log('Add payment method error', error)
+      }
+    },
   },
 })
 
-export const { addCart, deleteCart, addShippingAddress } = cartSlice.actions
+export const { addCart, deleteCart, addShippingAddress, addPaymentMethod } =
+  cartSlice.actions
 
 export default cartSlice.reducer

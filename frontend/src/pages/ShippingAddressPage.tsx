@@ -42,7 +42,7 @@ const ShippingAddressPage = () => {
     await distpatch(
       addShippingAddress({ fullName, address, city, country, postalCode })
     )
-    navigate('/')
+    navigate('/paymentMethod')
   }
 
   return (
