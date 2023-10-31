@@ -18,6 +18,7 @@ import { store } from './features/store.ts'
 import CartPage from './pages/CartPage.tsx'
 import SignInPage from './pages/SignInPage.tsx'
 import RegisterPage from './pages/RegisterPage.tsx'
+import ShippingAddressPage from './pages/ShippingAddressPage.tsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -27,6 +28,7 @@ const router = createBrowserRouter(
       <Route path="/cart" element={<CartPage />} />
       <Route path="/signin" element={<SignInPage />} />
       <Route path="/signup" element={<RegisterPage />} />
+      <Route path="/shippingAddress" element={<ShippingAddressPage />} />
     </Route>
   )
 )

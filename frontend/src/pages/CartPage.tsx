@@ -24,7 +24,7 @@ const CartPage = () => {
   }
 
   const CheckoutHandler = async () => {
-    navigate('/signin')
+    navigate('/shippingAddress')
   }
 
   const DeleteItemHandler = async (product: CartItem) => {

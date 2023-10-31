@@ -69,9 +69,18 @@ export const cartSlice = createSlice({
         console.log('Delete all cart error', error)
       }
     },
+    addShippingAddress: (state, action) => {
+      try {
+        const newAddress = action.payload
+        localStorage.setItem('ShippingAddress', JSON.stringify(newAddress))
+        return { ...state, shippingAddress: newAddress }
+      } catch (error) {
+        console.log('Add shipping address error', error)
+      }
+    },
   },
 })
 
-export const { addCart, deleteCart } = cartSlice.actions
+export const { addCart, deleteCart, addShippingAddress } = cartSlice.actions
 
 export default cartSlice.reducer
